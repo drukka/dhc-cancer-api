@@ -70,27 +70,17 @@ const flushAuthCodes = (userId, excludeAuthCodes = [], transaction) => AuthCode.
 const updateProfile = async (user, profileData) => {
   if (profileData.weight) {
     await timeEntryService.createTimeEntry(user, {
-      type: 'dataLog',
-      value: {
-        type: 'weight',
-        value: {
-          time: moment().toISOString(),
-          weight: profileData.weight
-        }
-      }
+      type: 'weight',
+      time: moment().toISOString(),
+      weight: profileData.weight
     });
   }
 
   if (profileData.height) {
     await timeEntryService.createTimeEntry(user, {
-      type: 'dataLog',
-      value: {
-        type: 'height',
-        value: {
-          time: moment().toISOString(),
-          height: profileData.height
-        }
-      }
+      type: 'height',
+      time: moment().toISOString(),
+      height: profileData.height
     });
   }
 

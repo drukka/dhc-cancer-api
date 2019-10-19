@@ -125,21 +125,27 @@ components:
         startTime:
           type: integer
           format: date-time
+          nullable: true
         length:
           type: integer
           description: Time in bed
+          nullable: true
         awake:
           type: integer
           description: Percentage of wakeness
+          nullable: true
         rem:
           type: integer
           description: Percentage of rem phase
+          nullable: true
         light:
           type: integer
           description: Percentage of light sleep
+          nullable: true
         deep:
           type: integer
           description: Percentage of deep sleep
+          nullable: true
       required:
         - startTime
         - length
@@ -165,8 +171,10 @@ components:
         time:
           type: string
           format: date-time
+          nullable: true
         weight:
           type: integer
+          nullable: true
       required:
         - time
         - weight
@@ -176,9 +184,11 @@ components:
         time:
           type: string
           format: date-time
+          nullable: true
         temperature:
           type: number
           format: double
+          nullable: true
       required:
         - time
         - temperature

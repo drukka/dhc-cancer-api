@@ -1,6 +1,6 @@
 'use strict';
 
-// const { expressError } = require('../../lib');
+const { expressError } = require('../../lib');
 const { timeEntryService } = require('../services');
 
 exports.createTimeEntry = async (req, res, next) => {
@@ -17,7 +17,7 @@ exports.listMyTimeEntries = async (req, res, next) => {
     const timeEntries = await timeEntryService.listTimeEntries(res.locals.currentUser);
 
     if (timeEntries.length === 0) {
-      throw new Error('Empty');
+      return next(expressError.NO_CONTENT());
     }
 
     res.send(timeEntries.map(timeEntryService.timeEntryResponse));

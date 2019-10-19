@@ -3,31 +3,37 @@
 const { TimeEntry, DataLog, FoodLog, Weight, Temperature } = require('../../models');
 
 const timeEntryResponse = data => {
-  let resp = {};
+  let resp = {
+    'type': '',
+    'time': null,
+    'weight': null,
+    'temperature': null,
+    'startTime': null,
+    'length': null,
+    'awake': null,
+    'rem': null,
+    'light': null,
+    'deep': null
+  };
+
   if (data.DataLog) {
-    resp.type = 'dataLog';
     if (data.DataLog.Weight) {
-      resp.value = {
+      Object.assign(resp, {
         type: 'weight',
-        value: {
-          time: data.DataLog.Weight.time,
-          weight: data.DataLog.Weight.weight
-        }
-      };
+        time: data.DataLog.Weight.time,
+        weight: data.DataLog.Weight.weight
+      });
     } else if (data.DataLog.Temperature) {
-      resp.value = {
+      Object.assign(resp, {
         type: 'temperature',
-        value: {
-          time: data.DataLog.Temperature.time,
-          temperature: data.DataLog.Temperature.temperature
-        }
-      };
+        time: data.DataLog.Temperature.time,
+        temperature: data.DataLog.Temperature.temperature
+      });
     }
   } else if (data.FoodLog) {
-    resp.type = 'foodLog';
-    resp.value = {
-      asd: 'asd'
-    };
+    Object.assign(resp, {
+      type: 'meal'
+    });
   }
 
   return resp;
@@ -48,14 +54,12 @@ const findTimeEntryById = id => TimeEntry.findOne({
 const createTimeEntry = async (user, data) => {
   const timeEntry = await user.createTimeEntry();
 
-  if (data.type === 'dataLog') {
+  if (data.type === 'weight') {
     const dataLog = await timeEntry.createDataLog();
-
-    if (data.value.type === 'weight') {
-      await dataLog.createWeight(data.value.value);
-    } else if (data.value.type === 'temperature') {
-      await dataLog.createTemperature(data.value.value);
-    }
+    await dataLog.createWeight(data);
+  } else if (data.type === 'temperature') {
+    const dataLog = await timeEntry.createDataLog();
+    await dataLog.createTemperature(data);
   }
 
   const resp = await findTimeEntryById(timeEntry.id);
