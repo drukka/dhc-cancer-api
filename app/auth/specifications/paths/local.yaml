@@ -1,0 +1,29 @@
+/auth/local:
+  post:
+    tags:
+      - auth
+    summary: Sign in with local authentication
+    x-router-controller: auth/controllers/localController
+    operationId: signIn
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LocalAuthentication'
+      required: true
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: '#/components/schemas/User'
+                token:
+                  type: string
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error
