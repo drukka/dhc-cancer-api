@@ -27,3 +27,43 @@
         description: Unauthorized
       500:
         description: Unexpected error
+/auth/local/sign-up:
+  post:
+    tags:
+      - auth
+    summary: Sign up
+    x-router-controller: api/controllers/authController
+    operationId: signUp
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      required: true
+    responses:
+      201:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      409:
+        description: Conflict
+      500:
+        description: Unexpected error
+/auth/me/check-auth-code: # should be just /users/me
+  get: # should be head
+    tags:
+      - auth
+    summary: Check if Bearer Authorization token is valid
+    x-router-controller: api/controllers/authController
+    operationId: checkAuthToken
+    security:
+      - Bearer: ['*']
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error

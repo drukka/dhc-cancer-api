@@ -17,21 +17,39 @@ components:
             activated:
               type: boolean
               readOnly: true
-            profilePicture:
+            role:
               type: string
-              format: uri
-              readOnly: true
+              enum: ['patient', 'physician']
           # required:
             # - password # there's an issue with writeOnly required parameters in oas-tools, should make a workaround until it's resolved
     Profile:
       type: object
       properties:
-        firstname:
+        fullname:
+          type: string
+        username:
+          type: string
+        typeOfCancer:
           type: string
           nullable: true
-        lastname:
+        currentStage:
           type: string
-          nullable: true
+        birthdate:
+          type: string
+          format: date-time
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+        height:
+          type: integer
+        weight:
+          type: number
+          format: double
+        anonymousShare:
+          type: boolean
+      required:
+        - fullname
+        - username
     ChangePassword:
       type: object
       properties:

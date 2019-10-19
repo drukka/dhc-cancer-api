@@ -1,0 +1,167 @@
+components:
+  schemas:
+    TimeEntry:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: ['dataLog', 'treatment', 'visit', 'medicine', 'diagnosis', 'foodLog']
+        value:
+          oneOf:
+            - $ref: "#/components/schemas/DataLog"
+            - $ref: "#/components/schemas/Treatment"
+            - $ref: "#/components/schemas/Visit"
+            - $ref: "#/components/schemas/Medicine"
+            - $ref: "#/components/schemas/Diagnosis"
+            - $ref: "#/components/schemas/FoodLog"
+      required:
+        - type
+        - value
+    ListOfTimeEntries:
+      type: array
+      items:
+        $ref: "#/components/schemas/TimeEntry"
+    Treatment:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+          description: Name of the treatment
+      required:
+        - startDate
+        - endDate
+        - type
+    Visit:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        description:
+          type: string
+          nullable: true
+      required:
+        - date
+        - description
+    Medicine:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        name:
+          type: string
+      required:
+        - time
+        - name
+    Diagnosis:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        photosUpload:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+            format: base64
+        photos:
+          type: array
+          readOnly: true
+          items:
+            type: string
+            format: url
+      required:
+        - date
+    FoodLog:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        food:
+          type: object
+          properties:
+            id:
+              type: integer
+            data:
+              type: object
+              readOnly: true
+              nullable: true
+          required:
+            - id
+      required:
+        - time
+        - foodId
+    DataLog:
+      oneOf:
+        - $ref: "#/components/schemas/WaterConsumption"
+        - $ref: "#/components/schemas/Sleep"
+        - $ref: "#/components/schemas/Mood"
+        # - $ref: "#/components/schemas/WaterConsumption"
+        # - $ref: "#/components/schemas/WaterConsumption"
+        # - $ref: "#/components/schemas/WaterConsumption"
+        # - $ref: "#/components/schemas/WaterConsumption"
+        # - $ref: "#/components/schemas/WaterConsumption"
+    WaterConsumption:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        amount:
+          type: number
+          format: double
+          description: Water intake in liter
+      required:
+        - date
+        - amount
+    Sleep:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          format: date-time
+        length:
+          type: integer
+          description: Time in bed
+        awake:
+          type: integer
+          description: Percentage of wakeness
+        rem:
+          type: integer
+          description: Percentage of rem phase
+        light:
+          type: integer
+          description: Percentage of light sleep
+        deep:
+          type: integer
+          description: Percentage of deep sleep
+      required:
+        - startTime
+        - length
+        - awake
+        - rem
+        - light
+        - deep
+    Mood:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        mood:
+          type: integer
+          enum: [1, 2, 3, 4, 5]
+      required:
+        - time
+        - mood
+          
+        

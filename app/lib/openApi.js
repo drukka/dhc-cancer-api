@@ -23,25 +23,21 @@ exports.loadSpecification = () => {
             scheme: 'bearer',
             bearerFormat: 'JWT',
             'x-acl-config': {
-              user: {
-                '$extend': ['anonymous'],
-                'users/me': {
-                  'create:any': ['*'],
-                  'read:any': ['*'],
-                  'update:any': ['*'],
-                  'delete:any': ['*']
-                }
+              patient: {
+                '$extend': ['anonymous']
+                // 'users/me': {
+                //   'create:any': ['*'],
+                //   'read:any': ['*'],
+                //   'update:any': ['*'],
+                //   'delete:any': ['*']
+                // }
               },
-              superAdmin: {
-                '$extend': ['user'],
-                'users': {
-                  'create:any': ['*'],
-                  'read:any': ['*'],
-                  'update:any': ['*'],
-                  'delete:any': ['*']
-                }
+              physician: {
+                '$extend': ['anonymous']
               },
-              anonymous: {}
+              anonymous: {
+                '*': '*'
+              }
             }
           }
         }

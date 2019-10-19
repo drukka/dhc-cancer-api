@@ -1,27 +1,3 @@
-/users/sign-up:
-  post:
-    tags:
-      - user
-    summary: Sign up
-    x-router-controller: api/controllers/userController
-    operationId: signUp
-    requestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
-      required: true
-    responses:
-      201:
-        description: Success
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-      409:
-        description: Conflict
-      500:
-        description: Unexpected error
 /users/me:
   get:
     tags:
@@ -141,22 +117,6 @@
         description: Bad request
       406:
         description: Old password is incorrect
-      500:
-        description: Unexpected error
-/users/me/check-auth-code: # should be just /users/me
-  get: # should be head
-    tags:
-      - user
-    summary: Check if Bearer Authorization token is valid
-    x-router-controller: api/controllers/userController
-    operationId: checkAuthToken
-    security:
-      - Bearer: ['*']
-    responses:
-      200:
-        description: Success
-      401:
-        description: Unauthorized
       500:
         description: Unexpected error
 /users/me/send-password-reset-email:
