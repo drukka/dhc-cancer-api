@@ -25,7 +25,7 @@ const userResponse = data => ({
   activated: data.activated,
   typeOfCancer: data.typeOfCancer,
   currentStage: data.currentStage,
-  birthdate: data.birthdate,
+  birthdate: moment(data.birthdate).toISOString(),
   anonymousShare: data.anonymousShare
 });
 
