@@ -105,8 +105,8 @@ components:
         - $ref: "#/components/schemas/WaterConsumption"
         - $ref: "#/components/schemas/Sleep"
         - $ref: "#/components/schemas/Mood"
-        # - $ref: "#/components/schemas/Weight"
-        # - $ref: "#/components/schemas/Temperature"
+        - $ref: "#/components/schemas/Weight"
+        - $ref: "#/components/schemas/Temperature"
     WaterConsumption:
       type: object
       properties:
@@ -160,5 +160,29 @@ components:
       required:
         - time
         - mood
+    Weight:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        weight:
+          type: number
+          format: double
+      required:
+        - time
+        - weight
+    Temperature:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        temperature:
+          type: number
+          format: double
+      required:
+        - time
+        - temperature
           
         
