@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     TimeEntry.hasMany(models.FoodLog, {
       foreignKey: 'timeEntryId'
     });
+
+    TimeEntry.hasMany(models.Datalog, {
+      foreignKey: 'timeEntryId'
+    });
   };
   return TimeEntry;
 };
