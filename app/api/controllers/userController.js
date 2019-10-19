@@ -9,7 +9,7 @@ exports.getProfile = (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
   try {
-    await userService.updateProfile(res.locals.currentUser.id, req.body);
+    await userService.updateProfile(res.locals.currentUser, req.body);
     res.send({});
   } catch (error) {
     next(error);

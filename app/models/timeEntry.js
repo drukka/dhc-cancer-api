@@ -19,27 +19,27 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'TimeEntry'
   });
   TimeEntry.associate = function (models) {
-    TimeEntry.hasMany(models.Treatment, {
+    TimeEntry.hasOne(models.Treatment, {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.Visit, {
+    TimeEntry.hasOne(models.Visit, {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.Medicine, {
+    TimeEntry.hasOne(models.Medicine, {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.Diagnosis, {
+    TimeEntry.hasOne(models.Diagnosis, {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.FoodLog, {
+    TimeEntry.hasOne(models.FoodLog, {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.DataLog, {
+    TimeEntry.hasOne(models.DataLog, {
       foreignKey: 'timeEntryId'
     });
   };

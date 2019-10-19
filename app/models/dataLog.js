@@ -19,11 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'DataLog'
   });
   DataLog.associate = function (models) {
-    DataLog.hasMany(models.Weight, {
+    DataLog.hasOne(models.Weight, {
       foreignKey: 'dataLogId'
     });
 
-    DataLog.hasMany(models.Temperature, {
+    DataLog.hasOne(models.Temperature, {
       foreignKey: 'dataLogId'
     });
   };

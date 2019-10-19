@@ -41,6 +41,12 @@ components:
           type: string
           format: date-time
           nullable: true
+        weight:
+          type: integer
+          writeOnly: true
+        height:
+          type: integer
+          writeOnly: true
         gender:
           type: string
           enum: ['male', 'female', 'other']

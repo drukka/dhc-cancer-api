@@ -3,6 +3,7 @@
 const { ENCRYPTION_SALT_ROUNDS, MISC_JWT_TOKEN, EMAIL_ACTIVATION_URL, PASSWORD_RESET_URL, PROFILE_PICTURE_URL, DEFAULT_RESOURCES_URL } = require('../../config');
 const { emailSender, utils } = require('../../lib');
 const { sequelize, User, AuthCode, EmailActivation, PasswordResetCode, UserRole } = require('../../models');
+const timeEntryService = require('./timeEntryService');
 
 const moment = require('moment');
 const bcrypt = require('bcrypt');
@@ -66,7 +67,35 @@ const flushAuthCodes = (userId, excludeAuthCodes = [], transaction) => AuthCode.
   transaction
 });
 
-const updateProfile = (id, profileData) => updateUser(id, profileData);
+const updateProfile = async (user, profileData) => {
+  if (profileData.weight) {
+    await timeEntryService.createTimeEntry(user, {
+      type: 'dataLog',
+      value: {
+        type: 'weight',
+        value: {
+          time: moment().toISOString(),
+          weight: profileData.weight
+        }
+      }
+    });
+  }
+
+  if (profileData.height) {
+    await timeEntryService.createTimeEntry(user, {
+      type: 'dataLog',
+      value: {
+        type: 'height',
+        value: {
+          time: moment().toISOString(),
+          height: profileData.height
+        }
+      }
+    });
+  }
+
+  return updateUser(user.id, profileData);
+};
 
 const createEmailActivation = (userId, email, code) => EmailActivation.create({ userId, email, code });
 

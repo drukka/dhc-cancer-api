@@ -24,25 +24,24 @@ exports.loadSpecification = () => {
             bearerFormat: 'JWT',
             'x-acl-config': {
               patient: {
-                '$extend': ['anonymous']
-                // 'users/me': {
-                //   'create:any': ['*'],
-                //   'read:any': ['*'],
-                //   'update:any': ['*'],
-                //   'delete:any': ['*']
-                // }
-              },
-              physician: {
-                '$extend': ['anonymous']
-              },
-              anonymous: {
+                '$extend': ['anonymous'],
                 'users': {
                   'create:any': ['*'],
                   'read:any': ['*'],
                   'update:any': ['*'],
                   'delete:any': ['*']
+                },
+                'time-entries': {
+                  'create:any': ['*'],
+                  'read:any': ['*'],
+                  'update:any': ['*'],
+                  'delete:any': ['*']
                 }
-              }
+              },
+              physician: {
+                '$extend': ['anonymous']
+              },
+              anonymous: {}
             }
           }
         }

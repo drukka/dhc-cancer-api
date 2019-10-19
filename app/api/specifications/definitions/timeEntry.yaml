@@ -101,12 +101,18 @@ components:
         - time
         - foodId
     DataLog:
-      oneOf:
-        - $ref: "#/components/schemas/WaterConsumption"
-        - $ref: "#/components/schemas/Sleep"
-        - $ref: "#/components/schemas/Mood"
-        - $ref: "#/components/schemas/Weight"
-        - $ref: "#/components/schemas/Temperature"
+      type: object
+      properties:
+        type:
+          type: string
+          enum: ['weight', 'temperature']
+        value:
+          oneOf:
+            - $ref: "#/components/schemas/WaterConsumption"
+            - $ref: "#/components/schemas/Sleep"
+            - $ref: "#/components/schemas/Mood"
+            - $ref: "#/components/schemas/Weight"
+            - $ref: "#/components/schemas/Temperature"
     WaterConsumption:
       type: object
       properties:
@@ -167,8 +173,7 @@ components:
           type: string
           format: date-time
         weight:
-          type: number
-          format: double
+          type: integer
       required:
         - time
         - weight
