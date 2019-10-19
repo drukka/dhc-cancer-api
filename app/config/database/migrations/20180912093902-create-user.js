@@ -51,7 +51,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       anonymousShare: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       createdAt: {
         allowNull: false,

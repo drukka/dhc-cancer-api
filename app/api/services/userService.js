@@ -19,19 +19,21 @@ const updateUser = (id, data, transaction) => User.update(data, { where: { id } 
 
 const userResponse = data => ({
   id: data.id,
-  firstname: data.firstname,
-  lastname: data.lastname,
+  fullname: data.fullname,
+  username: data.username,
   email: data.email,
-  language: data.language,
-  profilePicture: data.profilePicture ? `${PROFILE_PICTURE_URL}/${data.profilePicture}` : `${DEFAULT_RESOURCES_URL}/profilePicture.png`,
-  activated: data.activated
+  activated: data.activated,
+  typeOfCancer: data.typeOfCancer,
+  currentStage: data.currentStage,
+  birthdate: data.birthdate,
+  anonymousShare: data.anonymousShare
 });
 
 const createUser = async data => {
   data.password = await bcrypt.hash(data.password, ENCRYPTION_SALT_ROUNDS);
   const user = await User.create(data);
 
-  emailSender.send('welcome', user.email, { firstname: user.firstname }, user.language);
+  // emailSender.send('welcome', user.email, { firstname: user.firstname }, user.language);
 
   return userResponse(user);
 };

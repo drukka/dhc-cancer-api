@@ -36,7 +36,12 @@ exports.loadSpecification = () => {
                 '$extend': ['anonymous']
               },
               anonymous: {
-                '*': '*'
+                'users': {
+                  'create:any': ['*'],
+                  'read:any': ['*'],
+                  'update:any': ['*'],
+                  'delete:any': ['*']
+                }
               }
             }
           }

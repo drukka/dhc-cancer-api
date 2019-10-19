@@ -27,26 +27,27 @@ components:
       properties:
         fullname:
           type: string
+          nullable: true
         username:
           type: string
+          nullable: true
         typeOfCancer:
           type: string
           nullable: true
         currentStage:
           type: string
+          nullable: true
         birthdate:
           type: string
           format: date-time
+          nullable: true
         gender:
           type: string
           enum: ['male', 'female', 'other']
-        height:
-          type: integer
-        weight:
-          type: number
-          format: double
+          nullable: true
         anonymousShare:
           type: boolean
+          default: false
     ChangePassword:
       type: object
       properties:

@@ -3,26 +3,6 @@
 const { expressError } = require('../../lib');
 const { userService } = require('../services');
 
-exports.signUp = async (req, res, next) => {
-  try {
-    const user = userService.createUser({
-      email: req.body.email,
-      password: req.body.password,
-      firstname: req.body.firstname || null,
-      lastname: req.body.lastname || null,
-      language: res.locals.currentLanguage
-    });
-
-    res.status(201).send(await user);
-  } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return next(expressError.CONFLICT('Email address is already in use'));
-    }
-
-    next(error);
-  }
-};
-
 exports.getProfile = (req, res, next) => {
   res.send(userService.userResponse(res.locals.currentUser));
 };
@@ -81,10 +61,6 @@ exports.changePassword = async (req, res, next) => {
 
     next(error);
   }
-};
-
-exports.checkAuthToken = (req, res, next) => {
-  res.send({});
 };
 
 exports.sendPasswordResetEmail = async (req, res, next) => {

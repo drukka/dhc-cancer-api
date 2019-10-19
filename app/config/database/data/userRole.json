@@ -1,9 +1,9 @@
 [{
     "id": 10,
-    "name": "user"
+    "name": "patient"
 }, {
     "id": 20,
-    "name": "admin"
+    "name": "physician"
 }, {
     "id": 30,
     "name": "superAdmin"
