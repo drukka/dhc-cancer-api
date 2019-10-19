@@ -1,22 +1,15 @@
 components:
   schemas:
     TimeEntry:
-      type: object
-      properties:
-        type:
-          type: string
-          enum: ['dataLog', 'treatment', 'visit', 'medicine', 'diagnosis', 'foodLog']
-        value:
-          oneOf:
-            - $ref: "#/components/schemas/DataLog"
-            - $ref: "#/components/schemas/Treatment"
-            - $ref: "#/components/schemas/Visit"
-            - $ref: "#/components/schemas/Medicine"
-            - $ref: "#/components/schemas/Diagnosis"
-            - $ref: "#/components/schemas/FoodLog"
-      required:
-        - type
-        - value
+      allOf:
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: ['weight', 'temperature', 'sleep', 'bloodPressure', 'mood', 'water', 'hairLoss', 'otherSymptoms', 'pain', 'meal', 'medication', 'appointment']
+        - $ref: "#/components/schemas/Weight"
+        - $ref: "#/components/schemas/Temperature"
+        - $ref: "#/components/schemas/Sleep"
     ListOfTimeEntries:
       type: array
       items:

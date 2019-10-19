@@ -73,7 +73,8 @@ const listTimeEntries = user => {
       include: [Weight, Temperature]
     }, {
       model: FoodLog
-    }]
+    }],
+    order: [['id', 'DESC']]
   });
 };
 
