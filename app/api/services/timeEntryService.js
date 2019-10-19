@@ -45,7 +45,7 @@ const findTimeEntryById = id => TimeEntry.findOne({
   }]
 });
 
-exports.createTimeEntry = async (user, data) => {
+const createTimeEntry = async (user, data) => {
   const timeEntry = await user.createTimeEntry();
 
   if (data.type === 'dataLog') {
@@ -61,4 +61,24 @@ exports.createTimeEntry = async (user, data) => {
   const resp = await findTimeEntryById(timeEntry.id);
 
   return timeEntryResponse(resp);
+};
+
+const listTimeEntries = user => {
+  return TimeEntry.findAll({
+    where: {
+      userId: user.id
+    },
+    include: [{
+      model: DataLog,
+      include: [Weight, Temperature]
+    }, {
+      model: FoodLog
+    }]
+  });
+};
+
+module.exports = {
+  timeEntryResponse,
+  createTimeEntry,
+  listTimeEntries
 };
