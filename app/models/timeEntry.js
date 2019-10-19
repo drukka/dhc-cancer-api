@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'timeEntryId'
     });
 
-    TimeEntry.hasMany(models.Datalog, {
+    TimeEntry.hasMany(models.DataLog, {
       foreignKey: 'timeEntryId'
     });
   };
