@@ -14,20 +14,17 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      facebookId: {
+      fullname: {
         type: Sequelize.STRING
       },
-      firstname: {
+      username: {
         type: Sequelize.STRING
       },
-      lastname: {
+      typeOfCancer: {
         type: Sequelize.STRING
       },
-      profilePicture: {
+      currentStage: {
         type: Sequelize.STRING
-      },
-      language: {
-        type: Sequelize.ENUM('hu', 'en')
       },
       activated: {
         type: Sequelize.BOOLEAN,
@@ -41,9 +38,20 @@ module.exports = {
           key: 'id'
         }
       },
-      enabled: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+      birthdate: {
+        type: Sequelize.DATE
+      },
+      gender: {
+        type: Sequelize.ENUM('male', 'female', 'other')
+      },
+      height: {
+        type: Sequelize.INTEGER
+      },
+      weight: {
+        type: Sequelize.INTEGER
+      },
+      anonymousShare: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

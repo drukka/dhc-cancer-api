@@ -47,9 +47,6 @@ components:
           format: double
         anonymousShare:
           type: boolean
-      required:
-        - fullname
-        - username
     ChangePassword:
       type: object
       properties:

@@ -105,11 +105,8 @@ components:
         - $ref: "#/components/schemas/WaterConsumption"
         - $ref: "#/components/schemas/Sleep"
         - $ref: "#/components/schemas/Mood"
-        # - $ref: "#/components/schemas/WaterConsumption"
-        # - $ref: "#/components/schemas/WaterConsumption"
-        # - $ref: "#/components/schemas/WaterConsumption"
-        # - $ref: "#/components/schemas/WaterConsumption"
-        # - $ref: "#/components/schemas/WaterConsumption"
+        # - $ref: "#/components/schemas/Weight"
+        # - $ref: "#/components/schemas/Temperature"
     WaterConsumption:
       type: object
       properties:

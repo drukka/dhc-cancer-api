@@ -9,29 +9,49 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     email: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.STRING
     },
     password: {
       type: DataTypes.STRING
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    profilePicture: {
+    fullname: {
       type: DataTypes.STRING
     },
-    language: {
-      type: DataTypes.ENUM('hu', 'en')
+    username: {
+      type: DataTypes.STRING
+    },
+    typeOfCancer: {
+      type: DataTypes.STRING
+    },
+    currentStage: {
+      type: DataTypes.STRING
     },
     activated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      defaultValue: 10,
+      references: {
+        model: 'UserRole',
+        key: 'id'
+      }
+    },
+    birthdate: {
+      type: DataTypes.DATE
+    },
+    gender: {
+      type: DataTypes.ENUM('male', 'female', 'other')
+    },
+    height: {
+      type: DataTypes.INTEGER
+    },
+    weight: {
+      type: DataTypes.INTEGER
+    },
+    anonymousShare: {
+      type: DataTypes.BOOLEAN
     }
   }, {
     tableName: 'User',
