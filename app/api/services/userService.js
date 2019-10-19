@@ -1,6 +1,6 @@
 'use strict';
 
-const { ENCRYPTION_SALT_ROUNDS, MISC_JWT_TOKEN, EMAIL_ACTIVATION_URL, PASSWORD_RESET_URL, PROFILE_PICTURE_URL, DEFAULT_RESOURCES_URL } = require('../../config');
+const { ENCRYPTION_SALT_ROUNDS, MISC_JWT_TOKEN, EMAIL_ACTIVATION_URL, PASSWORD_RESET_URL } = require('../../config');
 const { emailSender, utils } = require('../../lib');
 const { sequelize, User, AuthCode, EmailActivation, PasswordResetCode, UserRole } = require('../../models');
 const timeEntryService = require('./timeEntryService');
