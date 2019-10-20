@@ -211,7 +211,7 @@ const deleteProfilePicture = user => {
 };
 
 const listUsers = () => {
-  return User.findAll();
+  return User.findAll({ where: { roleId: 10 } });
 };
 
 module.exports = {
