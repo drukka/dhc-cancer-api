@@ -1,0 +1,10 @@
+[{
+    "id": 10,
+    "name": "patient"
+}, {
+    "id": 20,
+    "name": "physician"
+}, {
+    "id": 30,
+    "name": "superAdmin"
+}]

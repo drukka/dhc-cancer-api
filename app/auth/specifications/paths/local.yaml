@@ -1,0 +1,74 @@
+/auth/local:
+  post:
+    tags:
+      - auth
+    summary: Sign in with local authentication
+    x-router-controller: auth/controllers/localController
+    operationId: signIn
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LocalAuthentication'
+      required: true
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: '#/components/schemas/User'
+                token:
+                  type: string
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error
+/auth/local/sign-up:
+  post:
+    tags:
+      - auth
+    summary: Sign up
+    x-router-controller: auth/controllers/localController
+    operationId: signUp
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      required: true
+    responses:
+      201:
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: '#/components/schemas/User'
+                token:
+                  type: string
+      409:
+        description: Conflict
+      500:
+        description: Unexpected error
+/auth/me/check-auth-code: # should be just /users/me
+  get: # should be head
+    tags:
+      - auth
+    summary: Check if Bearer Authorization token is valid
+    x-router-controller: auth/controllers/localController
+    operationId: checkAuthToken
+    security:
+      - Bearer: ['*']
+    responses:
+      200:
+        description: Success
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error

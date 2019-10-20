@@ -1,0 +1,196 @@
+components:
+  schemas:
+    TimeEntry:
+      allOf:
+        - type: object
+          properties:
+            type:
+              type: string
+              enum: ['weight', 'temperature', 'sleep', 'bloodPressure', 'mood', 'water', 'hairLoss', 'otherSymptoms', 'pain', 'meal', 'medication', 'appointment']
+        - $ref: "#/components/schemas/Weight"
+        - $ref: "#/components/schemas/Temperature"
+        - $ref: "#/components/schemas/Sleep"
+    ListOfTimeEntries:
+      type: array
+      items:
+        $ref: "#/components/schemas/TimeEntry"
+    Treatment:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+          description: Name of the treatment
+      required:
+        - startDate
+        - endDate
+        - type
+    Visit:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        description:
+          type: string
+          nullable: true
+      required:
+        - date
+        - description
+    Medicine:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        name:
+          type: string
+      required:
+        - time
+        - name
+    Diagnosis:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        photosUpload:
+          type: array
+          writeOnly: true
+          items:
+            type: string
+            format: base64
+        photos:
+          type: array
+          readOnly: true
+          items:
+            type: string
+            format: url
+      required:
+        - date
+    FoodLog:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        food:
+          type: object
+          properties:
+            id:
+              type: integer
+            data:
+              type: object
+              readOnly: true
+              nullable: true
+          required:
+            - id
+      required:
+        - time
+        - foodId
+    DataLog:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: ['weight', 'temperature']
+        value:
+          oneOf:
+            - $ref: "#/components/schemas/WaterConsumption"
+            - $ref: "#/components/schemas/Sleep"
+            - $ref: "#/components/schemas/Mood"
+            - $ref: "#/components/schemas/Weight"
+            - $ref: "#/components/schemas/Temperature"
+    WaterConsumption:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        amount:
+          type: number
+          format: double
+          description: Water intake in liter
+      required:
+        - date
+        - amount
+    Sleep:
+      type: object
+      properties:
+        startTime:
+          type: integer
+          format: date-time
+          nullable: true
+        length:
+          type: integer
+          description: Time in bed
+          nullable: true
+        awake:
+          type: integer
+          description: Percentage of wakeness
+          nullable: true
+        rem:
+          type: integer
+          description: Percentage of rem phase
+          nullable: true
+        light:
+          type: integer
+          description: Percentage of light sleep
+          nullable: true
+        deep:
+          type: integer
+          description: Percentage of deep sleep
+          nullable: true
+      required:
+        - startTime
+        - length
+        - awake
+        - rem
+        - light
+        - deep
+    Mood:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        mood:
+          type: integer
+          enum: [1, 2, 3, 4, 5]
+      required:
+        - time
+        - mood
+    Weight:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          nullable: true
+        weight:
+          type: integer
+          nullable: true
+      required:
+        - time
+        - weight
+    Temperature:
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+          nullable: true
+        temperature:
+          type: number
+          format: double
+          nullable: true
+      required:
+        - time
+        - temperature
+          
+        

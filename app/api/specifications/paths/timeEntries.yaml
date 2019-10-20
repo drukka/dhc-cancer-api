@@ -1,0 +1,47 @@
+/time-entries:
+  post:
+    tags:
+      - timeEntry
+    summary: Create time entry
+    x-router-controller: api/controllers/timeEntryController
+    operationId: createTimeEntry
+    security:
+      - Bearer: []
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TimeEntry'
+      required: true
+    responses:
+      201:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeEntry'
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error
+  get:
+    tags:
+      - timeEntry
+    summary: List my time entries
+    x-router-controller: api/controllers/timeEntryController
+    operationId: listMyTimeEntries
+    security:
+      - Bearer: []
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOfTimeEntries'
+      204:
+        description: No content
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error

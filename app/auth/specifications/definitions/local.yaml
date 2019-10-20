@@ -1,0 +1,12 @@
+components:
+  schemas:
+    LocalAuthentication:
+      allOf:
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            password:
+              type: string
+              format: password
+          required:
+            - password

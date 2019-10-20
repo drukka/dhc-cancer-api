@@ -1,0 +1,88 @@
+components:
+  schemas:
+    User:
+      allOf:
+        - $ref: '#/components/schemas/Profile'
+        - $ref: '#/components/schemas/Email'
+        - type: object
+          properties:
+            id:
+              type: integer
+              readOnly: true
+            password:
+              type: string
+              format: password
+              writeOnly: true
+              minLength: 10
+            activated:
+              type: boolean
+              readOnly: true
+            role:
+              type: string
+              enum: ['patient', 'physician']
+          # required:
+            # - password # there's an issue with writeOnly required parameters in oas-tools, should make a workaround until it's resolved
+    Profile:
+      type: object
+      properties:
+        fullname:
+          type: string
+          nullable: true
+        username:
+          type: string
+          nullable: true
+        typeOfCancer:
+          type: string
+          nullable: true
+        currentStage:
+          type: string
+          nullable: true
+        birthdate:
+          type: string
+          format: date-time
+          nullable: true
+        weight:
+          type: integer
+          writeOnly: true
+        height:
+          type: integer
+          writeOnly: true
+        gender:
+          type: string
+          enum: ['male', 'female', 'other']
+          nullable: true
+        anonymousShare:
+          type: boolean
+          default: false
+    ChangePassword:
+      type: object
+      properties:
+        oldPassword:
+          type: string
+          format: password
+        newPassword:
+          type: string
+          format: password
+          writeOnly: true
+          minLength: 10
+      required:
+        - oldPassword
+        - newPassword
+    Password:
+      type: object
+      properties:
+        password:
+          type: string
+          format: password
+          writeOnly: true
+          minLength: 10
+      required:
+        - password
+    ProfilePicture:
+      type: object
+      properties:
+        profilePicture:
+          type: string
+          format: base64
+      required:
+        - profilePicture

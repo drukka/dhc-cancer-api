@@ -1,0 +1,268 @@
+/users/me:
+  get:
+    tags:
+      - user
+    summary: Get profile
+    x-router-controller: api/controllers/userController
+    operationId: getProfile
+    security:
+      - Bearer: [read:own]
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      500:
+        description: Unexpected error
+  put:
+    tags:
+      - user
+    summary: Update profile info
+    x-router-controller: api/controllers/userController
+    operationId: updateProfile
+    security:
+      - Bearer: [update:own]
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Profile'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      500:
+        description: Unexpected error
+/users/me/request-email-change:
+  post:
+    tags:
+      - user
+    summary: Update user email
+    x-router-controller: api/controllers/userController
+    operationId: requestEmailChange
+    security:
+      - Bearer: [update:own]
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Email'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      409:
+        description: Conflict
+      500:
+        description: Unexpected error
+/users/me/send-activation-email:
+  post:
+    tags:
+      - user
+    summary: Send activation email
+    x-router-controller: api/controllers/userController
+    operationId: sendActivationEmail
+    security:
+      - Bearer: [update:own]
+    responses:
+      200:
+        description: Success
+      500:
+        description: Unexpected error
+/users/activate-email:
+  post:
+    tags:
+      - user
+    summary: Activate email address
+    x-router-controller: api/controllers/userController
+    operationId: activateEmail
+    requestBody:
+      content:
+        application/json:
+            schema:
+              $ref: '#/components/schemas/Token'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      500:
+        description: Unexpected error
+/users/me/change-password:
+  put: # should be patch
+    tags:
+      - user
+    summary: Update user password
+    x-router-controller: api/controllers/userController
+    operationId: changePassword
+    security:
+      - Bearer: [update:own]
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ChangePassword'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      406:
+        description: Old password is incorrect
+      500:
+        description: Unexpected error
+/users/me/send-password-reset-email:
+  post:
+    tags:
+      - user
+    summary: Send password reset email
+    x-router-controller: api/controllers/userController
+    operationId: sendPasswordResetEmail
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Email'
+      required: true
+    responses:
+      200:
+        description: Success (please note that the api will return 200 even if the email does not exists because of security considerations)
+      400:
+        description: Bad request
+      500:
+        description: Unexpected error
+/users/me/reset-password:
+  post: # should be patch
+    tags:
+      - user
+    summary: Reset password with the code sent in email with `/users/me/send-password-reset-email`
+    x-router-controller: api/controllers/userController
+    operationId: resetPassword
+    requestBody:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/Token'
+            - $ref: '#/components/schemas/Password'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      500:
+        description: Unexpected error
+/users/me/profile-picture:
+  put:
+    tags:
+      - user
+    summary: Update profile picture
+    x-router-controller: api/controllers/userController
+    operationId: updateProfilePicture
+    security:
+      - Bearer: [update:own]
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProfilePicture'
+      required: true
+    responses:
+      200:
+        description: Success
+      400:
+        description: Bad request
+      500:
+        description: Unexpected error
+  delete:
+    tags:
+      - user
+    summary: Delete profile picture
+    x-router-controller: api/controllers/userController
+    operationId: deleteProfilePicture
+    security:
+      - Bearer: [update:own]
+    responses:
+      200:
+        description: Success
+      500:
+        description: Unexpected error
+/users:
+  get:
+    tags:
+      - user
+    summary: List users
+    x-router-controller: api/controllers/userController
+    operationId: listUsers
+    security:
+      - Bearer: [read:any]
+    responses:
+      200:
+        description: Success
+      204:
+        description: Empty
+      500:
+        description: Unexpected error
+/users/{userId}:
+  get:
+    tags:
+      - user
+    summary: Get profile
+    x-router-controller: api/controllers/userController
+    operationId: getUser
+    security:
+      - Bearer: [read:any]
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      404:
+        description: Not found
+      500:
+        description: Unexpected error
+/users/{userId}/time-entries:
+  get:
+    tags:
+      - user
+    summary: Get user's time entries
+    x-router-controller: api/controllers/timeEntryController
+    operationId: listUsersTimeEntries
+    security:
+      - Bearer: []
+    parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOfTimeEntries'
+      204:
+        description: No content
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error

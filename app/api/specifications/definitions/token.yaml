@@ -1,0 +1,10 @@
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+          format: base64
+      required:
+        - token

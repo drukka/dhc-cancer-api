@@ -1,0 +1,22 @@
+/food:
+  get:
+    tags:
+      - food
+    summary: List of food
+    x-router-controller: api/controllers/foodController
+    operationId: listFood
+    security:
+      - Bearer: ['*']
+    responses:
+      200:
+        description: Success
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListOfFood'
+      204:
+        description: Empty
+      401:
+        description: Unauthorized
+      500:
+        description: Unexpected error
